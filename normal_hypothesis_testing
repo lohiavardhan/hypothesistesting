@@ -1,0 +1,86 @@
+import math
+import scipy.stats
+scipy.stats.norm(0,1)
+H_zero = float(input("Enter the mean value for the H0 value: "))
+
+
+S_D = float(input("Enter the standard Deviation: "))
+
+cl = float(input("Enter the % to which you want to test the code: "))
+
+print ("Enter < for lower than ")
+print("Enter > for greater than")
+print("Enter n for not equal to")
+operator = input("Enter the operator: ")
+
+#Normal for Less Than
+if operator == "<":
+    print("H1 < " + str(H_zero))
+    print("Assuming H0 is correct then N = " + "(" + str(H_zero) + " ," + str(S_D) + ")")
+    sm = float(input("Enter the sample mean: "))
+    H_zero = float(H_zero)
+    S_D = float(S_D)
+    X = sm-H_zero
+    Z = X/S_D
+    print("Z = " + str(Z))
+    Z = float(Z)
+    p = scipy.stats.norm(H_zero, S_D).cdf(sm)
+    print("p = "+ str(p))
+    p = float(p)
+    cfl = cl/100
+    if p < cfl:
+     print("Reject H0")
+    elif p > cfl:
+     print("Fail to reject H0")
+    else:
+      print("Please rerun the code and try again")
+
+# Normal for Greater than
+if operator == ">":
+    print("H1 > " + str(H_zero))
+    print("Assuming H0 is coreect then N = " + "(" + str(H_zero) + " ," + str(S_D) + ")")
+    sm = float(input("Enter the sample mean: "))
+    S_D = float(S_D)
+    X = sm-H_zero
+    Z = X/S_D
+    print("Z = " + str(Z))
+    Z = float(Z)
+    p = scipy.stats.norm(H_zero, S_D).cdf(sm)
+    fp = 1-p
+    print("p = "+ str(fp))
+    p = float(p)
+    cfl = cl/100
+    if fp < cfl:
+        print("Reject H0")
+    elif fp > cfl:
+        print("Fail to reject H0")
+
+# Normal for not equal to
+if operator == "n":
+    print("H1 not equal to " + str(H_zero))
+    print("Assuming H0 is coreect then N = " + "(" + str(H_zero) + " ," + str(S_D) + ")")
+    sm = float(input("Enter the sample mean: "))
+    S_D = float(S_D)
+    X = sm-H_zero
+    Z = X/S_D
+    print("Z = " + str(Z))
+    Z = float(Z)
+    if sm > H_zero:
+        p = scipy.stats.norm(H_zero, S_D).cdf(sm)
+        fp = 1-p
+        print("p = "+ str(fp))
+        p = float(p)
+        cfl = cl/100
+        if fp < cfl:
+            print("Reject H0")
+        elif fp > cfl:
+            print("Fail to reject H0")
+    elif sm <= H_zero:
+        p = scipy.stats.norm(H_zero, S_D).cdf(sm)
+        print("p = "+ str(p))
+        p = float(p)
+        cfl = cl/100
+        if p < cfl:
+            print("Reject H0")
+        elif p > cfl:
+            print("Fail to reject H0")
